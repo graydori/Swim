@@ -40,7 +40,7 @@
                 <div class="wrap">
                     <div class="cube">
                         <div class="back tiles">
-						<div>10 Feet</div>
+						      <div>10 Feet</div>
                             <div>9 Feet</div>
                             <div>8 Feet</div>
                             <div>7 Feet</div>
@@ -244,6 +244,14 @@
          #start-screen {
              background: linear-gradient(to bottom, rgba(139,218,225,1) 10%,rgba(80,130,164,1) 99%); /* W3C */
              
+         }
+         
+         #start-graphic > div > svg > g > g > g > g > g:nth-child(1) > g > path:nth-child(1),
+         #start-graphic > div > svg > g > g > g > g > g:nth-child(1) > g > path:nth-child(2),
+         #start-graphic > div > svg > g > g > g > g > g:nth-child(1) > g > path:nth-child(4),
+         #start-graphic > div > svg > g > g > g > g > g:nth-child(5) > path,
+         #start-graphic > div > svg > g > g > g > g > g:nth-child(1) > g > path:nth-child(1) {
+             fill:transparent;
          }
 
      </style>
