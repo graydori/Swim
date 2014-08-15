@@ -10,7 +10,9 @@ $(document).ready(function() {
     stage2.start();
 
     $('#start').click(function() {
-        TweenMax.to('#ingame',1,{opacity:1});
+        TweenMax.to('#ingame',1,{opacity:1, onComplete: function() {
+        $('#start-screen').hide();
+        }});
         
         
         var height = $('#game-container').height();

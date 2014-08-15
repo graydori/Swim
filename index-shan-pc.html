@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Flappy Boy</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0,user-scalable=no">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href='http://fonts.googleapis.com/css?family=Gochi+Hand|Bowlby+One' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="js/vendor/prefixfree.min.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+        <div id="start-screen" class="layer">
+            <div class="jumbotron layer">
+                <div class="container">
+                    <h1>Flappy Boy</h1>
+                    <p>Swim for your life</p>
+                    <p><a class="btn btn-primary btn-lg" id="start">Start</a></p>
+                </div>
+            </div>
+            <div id="start-graphic" class="layer"></div>
+        </div>
+        <div id="ingame" style="opacity:0">
+    <div id="game-container" class="layer">
+        <div id="game-contents">
+			<div id="bg">
+						<div class="water"></div>
+                        <div class="back tiles">
+							<div>10 Feet</div>
+                            <div>9 Feet</div>
+                            <div>8 Feet</div>
+                            <div>7 Feet</div>
+                            <div>6 Feet</div>
+                            <div>5 Feet</div>
+                            <div>4 Feet</div>
+                            <div>3 Feet</div>
+                            <div>2 Feet</div>
+                            <div>1 Feet</div>
+                        </div>
+                        <div class="bottom tiles caustics"></div>
+                        
+			</div>
+         </div>
+     </div>
+    <div class="layer">
+     <div id="character">
+		<img src="img/character.svg" id="character-body" />
+        <div id="character-swim"></div>
+	 </div>
+		<div id="life-bar"></div>
+	 </div>
+        </div>
+     <style>
+         body{font-family: 'Gochi Hand', cursive;}
+         h1,h2,h3,h4,h5,h6 {font-family: 'Bowlby One', cursive;}
+		 
+		 #character { position:relative; opacity: 0.8;}
+		 #character img,
+         #character > div { position:absolute;top:0;left:0; margin-left:-50%; margin-top:-50%;}
+         #character-swim { display: none; width:200px; margin-top: -52%;}
+        
+         
+         .jumbotron {
+             text-shadow: 1px 1px #fff,-1px -1px #fff,-1px 1px #fff,1px -1px #fff;
+             animation: bounceInDown 3s;
+         }
+         .jumbotron h1 {
+             text-shadow: 1px 1px #fff,-1px -1px #fff,-1px 1px #fff,1px -1px #fff,2px 2px #fff,-2px -2px #fff,-2px 2px #fff,2px -2px #fff;
+             font-weight: bolder;
+             
+         }
+         .jumbotron a {
+             animation: tada 1s;
+             animation-delay: 3s;
+         }
+         body {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.9) 100%);
+             background-color: #ccc;
+             height: 66px;
+         }
+        #position {
+            position:absolute;
+            bottom:40px;
+            right:20px;
+        }
+        #life-bar {
+            position:absolute;
+            bottom:0;
+            left:0;
+            width:100%;
+            opacity: 0.5;
+			height:100%;
+            font-size: 400px;
+            font-family: arial;
+            text-shadow: -3px -3px 0 #fff;
+        }
+        .layer {
+            height:100%;
+            position:absolute;
+            top:0;
+            width:100%;
+            left:0;
+            bottom:0;
+            overflow:hidden;
+        }
+        #game-container{
+            padding-top: 66px;
+        }
+
+        #character {
+            position:absolute;
+            top:-50%;
+            left:50%;
+            height:200px;
+            width:200px;
+            animation: wobble 4s infinite;
+        }
+        .jumbotron {
+			overflow:auto;
+			background: none;
+            z-index: 1;
+        }
+        #bg {
+            background:#ccc;
+        }
+         .wrap {
+             perspective: 5000px;
+             perspective-origin: 2000px 2000px;
+        }
+
+         .cube {
+            z-index: 0;
+            position: relative;
+            left:80px;
+            width: 100%;
+            height:5000px;
+            transform-style: preserve-3d;
+        }
+
+         .cube > div {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+         }
+		 
+         .tiles {
+            background: url(img/Crosshatch.png) repeat-y top left, url(img/tiles.png);
+         }
+		 
+		 .caustics {
+			background: url(img/caustics.png);
+            animation: caustics 30s infinite linear;
+		 }
+          .caustics.tiles {
+		  background: url(img/caustics.png), url(img/tiles.png);
+		  }
+		  
+         .water {
+             box-shadow: none !important;
+            background: url(img/water-4.png) repeat-x !important;
+             width: 120% !important;
+
+         }
+
+        @keyframes wave {
+           from { background-position: 0 0; }
+             to { background-position: -240px 0; }
+        }
+
+         @keyframes caustics {
+           from { background-position: 0 0, 0 0; }
+             to { background-position: -800px -800px, 0 0; }
+        }
+		
+         .water-1{
+             transform:  translateZ(200px);
+             animation: wave 5s infinite linear;
+         }
+         .water-2{
+             transform:  translateZ(150px);
+             animation: wave 6s infinite linear;
+			 filter: blur(2px);
+			 -webkit-filter: blur(2px);
+         }
+         .water-3{
+             transform:  translateZ(100px);
+             animation: wave 10s infinite linear;
+			 filter: blur(2px);
+			 -webkit-filter: blur(2px);
+         }
+         .back {
+		 
+		 }
+		 
+         .back > div {
+             padding-left: 10px;
+             height: 500px;
+             position: relative;
+             font-size:70px;
+             font-weight: bold;
+             font-family: monospace;
+             color: #fff;
+             opacity: 0.7;
+			 transform: translateZ(1px);
+         }
+            .left {
+                width: 200px !important;
+                left:0%;
+                transform:  rotateY(270deg);
+                transform-origin: center left;
+            }
+            .bottom {
+                top:94%;
+                height: 200px !important;
+                transform:  rotateX(-90deg);
+                transform-origin: bottom center;
+            }
+			html {
+			 -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+			-moz-user-select: none; /* mozilla browsers */
+			-khtml-user-select: none; /* webkit (konqueror) browsers */
+			-ms-user-select: none; /* IE10+ */
+			
+			}
+         #start-screen {
+             background: linear-gradient(to bottom, rgba(139,218,225,1) 10%,rgba(80,130,164,1) 99%); /* W3C */
+             
+         }
+
+     </style>
+
+    </div> <!-- /container      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script> -->
+        <script src="js/vendor/jquery-1.10.1.min.js"></script>
+        <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="https://www.gstatic.com/swiffy/v6.0/runtime.js"></script>
+        <script src="js/character-animation.js"></script>
+        <script src="js/start-animation.js"></script>
+        <script src="js/vendor/TweenMax.min.js"></script>
+        <script src="js/main.js"></script>
+
+        <script>
+            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+            g.src='//www.google-analytics.com/ga.js';
+            s.parentNode.insertBefore(g,s)}(document,'script'));
+        </script>
+    </body>
+</html>
